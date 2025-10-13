@@ -1,0 +1,17 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21",
+  "package": "mod.shoulder_surfing.irons_spells_integration.mixin",
+  "client": [
+    "CastPacketMixin",
+    "QuickCastPacketMixin",
+    "ScrollMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "shoulder_surfing_irons_spells_integration.mixins.refmap.json"
+}

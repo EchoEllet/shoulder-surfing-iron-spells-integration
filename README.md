@@ -28,3 +28,9 @@ rather than to the Shoulder Surfing Reloaded team.
 >
 > **This mod is not affiliated with the [Shoulder Surfing Reloaded Team](https://github.com/Exopandora/ShoulderSurfing)
 or [Iron's Spells 'n Spellbooks](https://github.com/iron431/Irons-Spells-n-Spellbooks).**
+
+## License
+
+[MIT](https://github.com/EchoEllet/shoulder-surfing-iron-spells-integration/blob/main/LICENSE)
+
+You can also find the [source code on GitHub](https://github.com/EchoEllet/shoulder-surfing-iron-spells-integration).

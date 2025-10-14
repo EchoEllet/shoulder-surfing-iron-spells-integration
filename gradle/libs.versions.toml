@@ -25,6 +25,9 @@ geckolib = "4.8.2"
 controllable = "6850105"
 framework = "6531439"
 
+# For publishing the mod to Modrinth
+modrinthMinotaur = "2.+"
+
 [libraries]
 epicfight = { module = "maven.modrinth:epic-fight", version.ref = "epicfight" }
 ironsSpellbooks = { module = "io.redspace:irons_spellbooks", version.ref = "ironsSpellbooks" }
@@ -40,3 +43,4 @@ framework = { module = "curse.maven:framework-549225", version.ref = "framework"
 
 [plugins]
 neoforgeGradle = { id = "net.neoforged.moddev", version.ref = "neoforgeGradle" }
+modrinthMinotaur = { id = "com.modrinth.minotaur", version.ref = "modrinthMinotaur" }

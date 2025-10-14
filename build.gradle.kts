@@ -2,6 +2,7 @@ plugins {
     `java-library`
     alias(libs.plugins.neoforgeGradle)
     idea
+    alias(libs.plugins.modrinthMinotaur)
 }
 
 tasks.named<Wrapper>("wrapper") {
@@ -19,54 +20,54 @@ val mcVersion = libs.versions.minecraft.get()
 val javaVersion = libs.versions.java.get().toInt()
 
 repositories {
-    exclusiveContent {
-        forRepository {
-            maven { name = "Modrinth"; url = uri("https://api.modrinth.com/maven") }
+    fun strictMaven(url: String, includeGroup: String, name: String) {
+        exclusiveContent {
+            forRepository {
+                maven {
+                    this.name = name
+                    this.url = uri(url)
+                }
+            }
+            filter {
+                includeGroup(includeGroup)
+            }
         }
-        filter { includeGroup("maven.modrinth") }
     }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://cursemaven.com") }
-        }
-        filter { includeGroup("curse.maven") }
-    }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://code.redspace.io/releases") }
-        }
-        filter { includeGroup("io.redspace") }
-    }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://maven.theillusivec4.top/") }
-        }
-        filter { includeGroup("com.illusivesoulworks.caelus") }
-    }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/") }
-        }
-        filter { includeGroup("software.bernie.geckolib") }
-    }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://maven.kosmx.dev/") }
-        }
-        filter { includeGroup("dev.kosmx.player-anim") }
-    }
-
-    exclusiveContent {
-        forRepository {
-            maven { url = uri("https://maven.theillusivec4.top/") }
-        }
-        filter { includeGroup("top.theillusivec4.curios") }
-    }
+    strictMaven(
+        url = "https://api.modrinth.com/maven",
+        name = "Modrinth",
+        includeGroup = "maven.modrinth"
+    )
+    strictMaven(
+        url = "https://cursemaven.com",
+        name = "CurseMaven",
+        includeGroup = "curse.maven"
+    )
+    strictMaven(
+        url = "https://code.redspace.io/releases",
+        name = "Redspace Release",
+        includeGroup = "io.redspace"
+    )
+    strictMaven(
+        url = "https://maven.theillusivec4.top/",
+        name = "Caelus",
+        includeGroup = "com.illusivesoulworks.caelus"
+    )
+    strictMaven(
+        url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/",
+        name = "GeckoLib",
+        includeGroup = "software.bernie.geckolib"
+    )
+    strictMaven(
+        url = "https://maven.kosmx.dev/",
+        name = "KosmX",
+        includeGroup = "dev.kosmx.player-anim"
+    )
+    strictMaven(
+        url = "https://maven.theillusivec4.top/",
+        name = "Curios",
+        includeGroup = "top.theillusivec4.curios"
+    )
 }
 
 base {
@@ -74,7 +75,13 @@ base {
     version = "${modVersion}-mc${mcVersion}-neoforge"
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+java {
+    withSourcesJar()
+
+    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+}
+
+val sourcesJar by tasks.getting(Jar::class)
 
 neoForge {
     version = neoforgeVersion
@@ -197,4 +204,60 @@ idea {
         isDownloadSources = true
         isDownloadJavadoc = true
     }
+}
+
+fun extractCurrentVersionChangelog(): String {
+    val changelogFile = rootProject.file("CHANGELOG.md")
+    val fullChangelogText = changelogFile.readText()
+
+    val versionSectionRegex = Regex("(?s)## \\[$modVersion].*?(?=\\n## \\[|\\z)")
+
+    val versionSection = versionSectionRegex.find(fullChangelogText)
+        ?.value
+        ?.trim()
+        ?: error("No changelog found for version $modVersion")
+
+    val versionChangelog = versionSection.lineSequence()
+        .drop(1) // skip the heading line
+        .joinToString("\n")
+        .trim()
+    return versionChangelog
+}
+
+fun buildReleaseChangeLog(currentVersionChangelog: String): String {
+    return buildString {
+        append(currentVersionChangelog)
+        append("\n\n")
+        append(
+            """
+    **Tested against:**
+    - **NeoForge:** $neoforgeVersion
+    - **Minecraft:** $mcVersion
+    - **Shoulder Surfing Reloaded:** ${libs.versions.shoulderSurfingReloaded.get()}
+    - **Iron's Spells 'n Spellbooks:** ${libs.versions.ironsSpellbooks.get()}
+    """.trimIndent()
+        )
+    }
+}
+
+modrinth {
+    val modrinthToken: String? = System.getenv("MODRINTH_TOKEN")
+    debugMode.set(modrinthToken == null)
+    token.set(modrinthToken)
+    projectId.set("shoulder-surfing-iron-spells-integration")
+    versionNumber.set(modVersion)
+    versionType.set("release")
+    versionName.set("[NeoForge ${libs.versions.minecraft.get()}] v${modVersion}")
+    uploadFile.set(tasks.jar)
+    additionalFiles.add(sourcesJar)
+    gameVersions.addAll(libs.versions.minecraft.get())
+    loaders.add("neoforge")
+    dependencies {
+        required.project("shoulder-surfing-reloaded")
+        required.project("irons-spells-n-spellbooks")
+    }
+
+    changelog.set(buildReleaseChangeLog(extractCurrentVersionChangelog()))
+
+    syncBodyFrom = rootProject.file("README.md").readText()
 }

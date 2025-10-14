@@ -43,7 +43,7 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         getShoulderSurfing().toggleCameraCoupling();
     }
 
-    public static void lookAtCrosshairTarget() {
+    private static void lookAtCrosshairTarget() {
         getShoulderSurfing().lookAtCrosshairTarget();
     }
 
@@ -57,10 +57,18 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         return castType == CastType.CONTINUOUS;
     }
 
-    public static void onCastSpellUsingSpellBook() {
+    private static void lookAtCrosshairTargetIfCameraDecoupled() {
         if (isShoulderSurfingCameraDecoupled()) {
             lookAtCrosshairTarget();
         }
+    }
+
+    public static void onCastSpellUsingSpellBook() {
+        lookAtCrosshairTargetIfCameraDecoupled();
+    }
+
+    public static void onUseScrollItem() {
+        lookAtCrosshairTargetIfCameraDecoupled();
     }
 
     private boolean temporarilyOverrodeCameraDecoupling = false;

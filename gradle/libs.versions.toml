@@ -1,5 +1,5 @@
 [versions]
-mod = "0.0.1"
+mod = "0.0.2"
 javaFmlLoaderRange = "[1,)"
 neoforgeGradle = "2.0.115"
 neoforge = "21.1.211"

@@ -33,11 +33,11 @@ Here are the issues that this mod fix:
 This mod uses the [
 `ICameraCouplingCallback`](https://github.com/Exopandora/ShoulderSurfing/wiki/API-Documentation-Callbacks#icameracouplingcallback)
 callback provided by the Shoulder Surfing Reloaded mod to force camera coupling whenever the player is casting a
-continuous spell, regardless of the cast source (e.g., spell book, spell item).
+continuous spell, regardless of the cast source (e.g., spell book, scroll item).
 
 ### Look at Crosshair Target When Casting via Spell Book
 
-When casting a spell using a spell item by right-clicking with the mouse, the Shoulder Surfing mod will automatically
+When casting a spell using a scroll item by right-clicking with the mouse, the Shoulder Surfing mod will automatically
 look at the crosshair target. This is not the case when casting spells via spell books, which is a common method.
 
 Mixins into the constructors of [
@@ -52,11 +52,11 @@ The [official API provided by the Iron Spells mod](https://iron.wiki/developers/
 currently a bit limited, and all events are called on the server side only. This makes it difficult to keep this mod
 client-side only while still supporting controller mods and avoiding dependency on their internal APIs.
 
-### Always Look at Crosshair Target When Using a Spell Item
+### Always Look at Crosshair Target When Using a Scroll Item
 
 The Shoulder Surfing mod automatically calls [
 `ShoulderSurfingImpl.lookAtCrosshairTarget`](https://github.com/Exopandora/ShoulderSurfing/blob/7f0df83beb4f7158810e188150eb7e9812981529/common/src/main/java/com/github/exopandora/shouldersurfing/client/ShoulderSurfingImpl.java#L125-L129)
-when you use any item. However, when using a spell item via controller, Shoulder Surfing does not recognize it. To work
+when you use any item. However, when using a scroll item via controller, Shoulder Surfing does not recognize it. To work
 around this, we call `ShoulderSurfingImpl.lookAtCrosshairTarget` before [
 `Scroll.use`](https://github.com/iron431/irons-spells-n-spellbooks/blob/4326ce5c42bc87b59260a9ff8f10dcfb90ad7f31/src/main/java/io/redspace/ironsspellbooks/item/Scroll.java#L59-L82)
 is called.

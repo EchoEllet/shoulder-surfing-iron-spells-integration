@@ -3,13 +3,9 @@ package mod.shoulder_surfing.irons_spells_integration;
 import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /**
  * <p>
@@ -31,16 +27,10 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  */
 @Mod(value = ShoulderSurfingIronsSpellsIntegration.MOD_ID, dist = Dist.CLIENT)
 public class ShoulderSurfingIronsSpellsIntegrationClient {
-    public ShoulderSurfingIronsSpellsIntegrationClient(ModContainer container) {
-        NeoForge.EVENT_BUS.register(this);
-    }
+    public ShoulderSurfingIronsSpellsIntegrationClient(ModContainer container) {}
 
     private static ShoulderSurfingImpl getShoulderSurfing() {
         return ShoulderSurfingImpl.getInstance();
-    }
-
-    private static void toggleShoulderSurfingCameraCoupling() {
-        getShoulderSurfing().toggleCameraCoupling();
     }
 
     private static void lookAtCrosshairTarget() {
@@ -71,28 +61,11 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         lookAtCrosshairTargetIfCameraDecoupled();
     }
 
-    private boolean temporarilyOverrodeCameraDecoupling = false;
+    private static boolean isCastingContinuousSpell() {
+        return ClientMagicData.isCasting() && isContinuousSpell(ClientMagicData.getCastType());
+    }
 
-    @SubscribeEvent
-    public void onPlayerTick(PlayerTickEvent.Post event) {
-        final Player player = event.getEntity();
-        if (!player.level().isClientSide) {
-            // Should never happen: this event is registered for the client only.
-            // Extra check included as a safeguard against server-side firing.
-            return;
-        }
-
-        final boolean isCasting = ClientMagicData.isCasting();
-        final boolean isContinuous = isContinuousSpell(ClientMagicData.getCastType());
-
-        if (isCasting) {
-            if (isContinuous && isShoulderSurfingCameraDecoupled()) {
-                toggleShoulderSurfingCameraCoupling();
-                temporarilyOverrodeCameraDecoupling = true;
-            }
-        } else if (temporarilyOverrodeCameraDecoupling) {
-            temporarilyOverrodeCameraDecoupling = false;
-            toggleShoulderSurfingCameraCoupling();
-        }
+    public static boolean shouldForceAimAtTarget() {
+        return isCastingContinuousSpell() && isShoulderSurfingCameraDecoupled();
     }
 }

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2025-10-15
+
+* Modified Shoulder Surfing mod internals instead of using the `ShoulderSurfingImpl.toggleShoulderSurfingCameraCoupling`
+  workaround, which requires running on every client player tick event.
+
 ## [0.0.2] - 2025-10-14
 
 * Fixed a minor bug; avoid looking at crosshair target when in first person by applying the fix when only in Shoulder

@@ -47,6 +47,10 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         return castType == CastType.CONTINUOUS;
     }
 
+    private static boolean isCastingContinuousSpell() {
+        return ClientMagicData.isCasting() && isContinuousSpell(ClientMagicData.getCastType());
+    }
+
     private static void lookAtCrosshairTargetIfCameraDecoupled() {
         if (isShoulderSurfingCameraDecoupled()) {
             lookAtCrosshairTarget();
@@ -61,11 +65,7 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         lookAtCrosshairTargetIfCameraDecoupled();
     }
 
-    private static boolean isCastingContinuousSpell() {
-        return ClientMagicData.isCasting() && isContinuousSpell(ClientMagicData.getCastType());
-    }
-
-    public static boolean shouldForceAimAtTarget() {
-        return isCastingContinuousSpell() && isShoulderSurfingCameraDecoupled();
+    public static boolean shouldForceCameraCoupling() {
+        return isCastingContinuousSpell();
     }
 }

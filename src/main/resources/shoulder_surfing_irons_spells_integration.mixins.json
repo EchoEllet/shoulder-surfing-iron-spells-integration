@@ -6,8 +6,7 @@
   "client": [
     "CastPacketMixin",
     "QuickCastPacketMixin",
-    "ScrollMixin",
-    "ShoulderSurfingImplMixin"
+    "ScrollMixin"
   ],
   "mixins": [
   ],

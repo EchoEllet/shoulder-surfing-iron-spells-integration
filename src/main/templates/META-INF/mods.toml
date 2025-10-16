@@ -15,33 +15,30 @@ logoFile="logo.png"
 authors = "Ellet"
 description = "Integrates Shoulder Surfing Reloaded with Iron’s Spells ’n Spellbooks, making the camera automatically follow your crosshair whenever you cast a spell—via spellbooks, normal spells, or quick cast. Compatible with controller mods."
 
-[[mixins]]
-config = "${mod_id}.mixins.json"
-
 [[dependencies.${ mod_id }]]
-modId = "neoforge"
-type = "required"
-versionRange = "${neoforge_version_range}"
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
-type = "required"
+mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "irons_spellbooks"
-type = "required"
+mandatory = true
 versionRange = "${ironsSpellbooks_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "shouldersurfing"
-type = "required"
+mandatory = true
 versionRange = "${shouldersurfing_version_range}"
 ordering = "NONE"
 side = "BOTH"

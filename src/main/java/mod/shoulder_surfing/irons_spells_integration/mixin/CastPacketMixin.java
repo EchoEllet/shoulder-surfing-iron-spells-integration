@@ -1,23 +1,23 @@
 package mod.shoulder_surfing.irons_spells_integration.mixin;
 
-import io.redspace.ironsspellbooks.network.casting.CastPacket;
+import io.redspace.ironsspellbooks.network.ServerboundCast;
 import mod.shoulder_surfing.irons_spells_integration.ShoulderSurfingIronsSpellsIntegration;
 import mod.shoulder_surfing.irons_spells_integration.ShoulderSurfingIronsSpellsIntegrationClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @OnlyIn(Dist.CLIENT)
-@Mixin(CastPacket.class)
+@Mixin(ServerboundCast.class)
 public class CastPacketMixin {
 
     /**
-     * Assumes that {@link CastPacket} is instantiated when the player presses the key to cast a spell using a spellbook.
+     * Assumes that {@link ServerboundCast} is instantiated when the player presses the key to cast a spell using a spellbook.
      * This behavior is accurate at the time of writing, and while future updates to Iron Spells may change it, such changes are unlikely.
      * */
     @Inject(method = "<init>*", at = @At("RETURN"))

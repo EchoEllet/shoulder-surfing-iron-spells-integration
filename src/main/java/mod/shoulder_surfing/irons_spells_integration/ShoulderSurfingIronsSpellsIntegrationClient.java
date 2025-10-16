@@ -3,9 +3,6 @@ package mod.shoulder_surfing.irons_spells_integration;
 import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
 
 /**
  * <p>
@@ -27,9 +24,7 @@ import net.neoforged.fml.common.Mod;
  * <p>
  * For more info: <a href="https://github.com/EchoEllet/shoulder-surfing-iron-spells-integration#echnical-implementation">README.</a>
  */
-@Mod(value = ShoulderSurfingIronsSpellsIntegration.MOD_ID, dist = Dist.CLIENT)
 public class ShoulderSurfingIronsSpellsIntegrationClient {
-    public ShoulderSurfingIronsSpellsIntegrationClient(ModContainer container) {}
 
     private static ShoulderSurfingImpl getShoulderSurfing() {
         return ShoulderSurfingImpl.getInstance();

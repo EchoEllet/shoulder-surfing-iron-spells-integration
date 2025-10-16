@@ -27,11 +27,6 @@ public class ScrollMixin {
             // Safeguard
             return;
         }
-        // Workaround for controller compatibility:
-        // Normally, when a player uses Iron Spell scrolls via keyboard, Shoulder Surfing mod automatically
-        // adjusts the camera to look at the crosshair target. When using a controller, the mod cannot detect
-        // the input correctly, so it would skip this adjustment.
-        // This call ensures that camera targeting works correctly for any input method.
         ShoulderSurfingIronsSpellsIntegrationClient.onUseScrollItem();
     }
 }

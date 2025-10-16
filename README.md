@@ -6,7 +6,9 @@ follow your crosshair whenever you cast a spell—via spellbooks, normal spells,
 mods.
 
 [//]: # (Hosted in: https://github.com/EchoEllet/shoulder-surfing-iron-spells-integration/discussions/1)
-![output](https://github.com/user-attachments/assets/92e3af27-b409-4beb-ade4-cabb70325115)
+![Shoulder Surfing Camera Decoupled](https://github.com/user-attachments/assets/92e3af27-b409-4beb-ade4-cabb70325115)
+
+![Shoulder Surfing Camera Coupled](https://github.com/user-attachments/assets/1aed31a7-2348-4c43-828f-6ff6042b731e)
 
 ## Compatibility
 
@@ -24,21 +26,26 @@ rather than to the Shoulder Surfing Reloaded team.
 
 ## Technical Implementation
 
-This mod fixes issues that you may encounter when the Shoulder Surfing camera is decoupled.
+**This mod fixes issues you may encounter when using the Shoulder Surfing Perspective.**  
+The fixes are universal and apply **regardless of whether the camera is decoupled or not**.
 
 Here are the issues that this mod fix:
 
-### Fixing Continuous Spell Casting
+### Continuous Spell Casting
 
-This mod uses the [
-`ICameraCouplingCallback`](https://github.com/Exopandora/ShoulderSurfing/wiki/API-Documentation-Callbacks#icameracouplingcallback)
-callback provided by the Shoulder Surfing Reloaded mod to force camera coupling whenever the player is casting a
-continuous spell, regardless of the cast source (e.g., spell book, scroll item).
+This mod uses the [`IAdaptiveItemCallback`](https://github.com/Exopandora/ShoulderSurfing/wiki/API-Documentation-Callbacks#iadaptiveitemcallback)  
+callback provided by the Shoulder Surfing Reloaded mod so that it **identifies as if we're aiming at the crosshair target**,  
+ensuring the **player looks at the crosshair target** regardless of the spell cast source (e.g., spell book, scroll item)  
+and whether the camera is decoupled or not.
+
+This fix is effective even when the camera is coupled, because without it, casting a continuous spell in Shoulder Surfing
+causes the player to look straight ahead instead of at the crosshair.
 
 ### Look at Crosshair Target When Casting via Spell Book
 
 When casting a spell using a scroll item by right-clicking with the mouse, the Shoulder Surfing mod will automatically
-look at the crosshair target. This is not the case when casting spells via spell books, which is a common method.
+look at the crosshair target **if the camera is decoupled**.
+This is not the case when casting spells via spell books, which is a common method.
 
 Mixins into the constructors of [
 `CastPacket`](https://github.com/iron431/irons-spells-n-spellbooks/blob/aa90a5b2826da07c1ed5a6e65e178c35e23c73ec/src/main/java/io/redspace/ironsspellbooks/network/casting/CastPacket.java#L17-L18)
@@ -54,16 +61,20 @@ client-side only while still supporting controller mods and avoiding dependency 
 
 ### Always Look at Crosshair Target When Using a Scroll Item
 
-The Shoulder Surfing mod automatically calls [
-`ShoulderSurfingImpl.lookAtCrosshairTarget`](https://github.com/Exopandora/ShoulderSurfing/blob/7f0df83beb4f7158810e188150eb7e9812981529/common/src/main/java/com/github/exopandora/shouldersurfing/client/ShoulderSurfingImpl.java#L125-L129)
-when you use any item. However, when using a scroll item via controller, Shoulder Surfing does not recognize it. To work
-around this, we call `ShoulderSurfingImpl.lookAtCrosshairTarget` before [
+We call `ShoulderSurfingImpl.lookAtCrosshairTarget` before [
 `Scroll.use`](https://github.com/iron431/irons-spells-n-spellbooks/blob/4326ce5c42bc87b59260a9ff8f10dcfb90ad7f31/src/main/java/io/redspace/ironsspellbooks/item/Scroll.java#L59-L82)
-is called.
+is called to fix two issues:
 
-This fixes the issue for Shoulder Surfing and Iron Spells mods, but the core issue remains unresolved for other mods;
-Shoulder Surfing does not automatically look at the crosshair target when using an item via controller rather than a
-vanilla mouse right-click.
+* The Shoulder Surfing mod automatically calls [
+  `ShoulderSurfingImpl.lookAtCrosshairTarget`](https://github.com/Exopandora/ShoulderSurfing/blob/7f0df83beb4f7158810e188150eb7e9812981529/common/src/main/java/com/github/exopandora/shouldersurfing/client/ShoulderSurfingImpl.java#L125-L129)
+  when you use any item **if the camera is decoupled**. However, when using a scroll item via controller,
+  Shoulder Surfing does not recognize it.
+* This fix is useful **even if you don't use a controller**, because when the camera is coupled,
+`ShoulderSurfingImpl.lookAtCrosshairTarget` is not called automatically. Without this fix,
+spells will be cast straight ahead of the player instead of aiming at the crosshair target.
+
+The player will **always** look at the crosshair target, **regardless of whether the camera is coupled or decoupled**,
+and regardless of the input method—controller or keyboard.
 
 ## Disclaimer
 

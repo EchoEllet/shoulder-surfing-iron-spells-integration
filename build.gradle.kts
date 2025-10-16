@@ -72,8 +72,10 @@ repositories {
 
 base {
     archivesName = modId
-    version = "${modVersion}-mc${mcVersion}-neoforge"
+    version = getFullModVersion()
 }
+
+fun getFullModVersion(): String = "${modVersion}-mc${mcVersion}-neoforge"
 
 java {
     withSourcesJar()
@@ -245,7 +247,7 @@ modrinth {
     debugMode.set(modrinthToken == null)
     token.set(modrinthToken)
     projectId.set("shoulder-surfing-iron-spells-integration")
-    versionNumber.set(modVersion)
+    versionNumber.set(getFullModVersion())
     versionType.set("release")
     versionName.set("[NeoForge ${libs.versions.minecraft.get()}] v${modVersion}")
     uploadFile.set(tasks.jar)

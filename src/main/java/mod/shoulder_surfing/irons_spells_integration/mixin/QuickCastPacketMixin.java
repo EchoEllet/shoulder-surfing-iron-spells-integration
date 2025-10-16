@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(QuickCastPacket.class)
 public class QuickCastPacketMixin {
     /**
-     * Assumes that {@link QuickCastPacketMixin} is instantiated when the player presses the key to cast a spell using a spellbook.
+     * Assumes that {@link QuickCastPacket} is instantiated when the player presses the key to cast a spell using a spellbook.
      * This behavior is accurate at the time of writing, and while future updates to Iron Spells may change it, such changes are unlikely.
      * */
     @Inject(method = "<init>*", at = @At("RETURN"))

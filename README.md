@@ -2,7 +2,7 @@
 
 A simple client-side mod that integrates [Shoulder Surfing Reloaded](https://modrinth.com/mod/shoulder-surfing-reloaded)
 and [Iron's Spells 'n Spellbooks](https://modrinth.com/mod/irons-spells-n-spellbooks), making the camera automatically
-follow your crosshair whenever you cast a spell—via spellbooks, normal spells, or quick cast. Compatible with controller
+follow your crosshair whenever you cast a spell—via spellbooks, scroll items, or quick cast. Compatible with controller
 mods.
 
 [//]: # (Hosted in: https://github.com/EchoEllet/shoulder-surfing-iron-spells-integration/discussions/1)

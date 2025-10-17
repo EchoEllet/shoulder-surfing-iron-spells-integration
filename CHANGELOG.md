@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.7] - 2025-10-17
+
+* **Fixed**: The `lookAtCrosshairTarget` is called when perspective is not Shoulder Surfing.
+* **Fixed**: `ICameraCouplingCallback` is used accidentally instead of`IAdaptiveItemCallback` for continuous spell.
+
 ## [0.0.6] - 2025-10-17
 
 * **Fixed:** Casting a continuous spell previously forced the camera to couple but did **not** make the player aim at

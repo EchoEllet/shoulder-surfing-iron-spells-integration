@@ -37,6 +37,12 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
         getShoulderSurfing().lookAtCrosshairTarget();
     }
 
+    private static void lookAtCrosshairTargetIfShoulderSurfing() {
+        if (getShoulderSurfing().isShoulderSurfing()) {
+            lookAtCrosshairTarget();
+        }
+    }
+
     private static boolean isContinuousSpell(CastType castType) {
         return castType == CastType.CONTINUOUS;
     }
@@ -46,11 +52,11 @@ public class ShoulderSurfingIronsSpellsIntegrationClient {
     }
 
     public static void onCastSpellUsingSpellBook() {
-        lookAtCrosshairTarget();
+        lookAtCrosshairTargetIfShoulderSurfing();
     }
 
     public static void onUseScrollItem() {
-        lookAtCrosshairTarget();
+        lookAtCrosshairTargetIfShoulderSurfing();
     }
 
     public static boolean shouldAimAtTarget() {

@@ -49,7 +49,7 @@ repositories {
     strictMaven(
         url = "https://code.redspace.io/releases",
         name = "Redspace Release",
-        includeGroup = "io.redspace.ironsspellbooks"
+        includeGroup = "io.redspace"
     )
     strictMaven(
         url = "https://maven.theillusivec4.top/",
@@ -168,10 +168,6 @@ dependencies {
     localRuntime(fg.deobf(libs.playerAnimationLib))
     localRuntime(fg.deobf(libs.curios))
     localRuntime(fg.deobf(libs.geckolib))
-
-    // For testing compatibility with controller mods
-    localRuntime(fg.deobf(libs.controllable))
-    localRuntime(fg.deobf(libs.framework))
 
     // For testing compatibility with Epic fight mod
     localRuntime(fg.deobf(libs.epicfight))

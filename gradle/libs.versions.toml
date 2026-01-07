@@ -11,10 +11,10 @@ java = "17"
 
 epicfight = "20.12.12"
 
-ironsSpellbooks = "1.20.1-3.4.0.9"
-ironsSpellbooksRange = "[1.20.1-3.4.0.9,1.20.1-3.5.0)"
+ironsSpellbooks = "1.20.1-3.15.0"
+ironsSpellbooksRange = "[1.20.1-3.15.0,)"
 
-shoulderSurfingReloaded = "1.20.1-4.14.3+forge"
+shoulderSurfingReloaded = "1.20.1-4.18.1+forge"
 shoulderSurfingReloadedRange = "[1.20.1-4.14.3,1.20.1-5.0.0)"
 
 # Runtime-only mods: required dependencies and optional mods for compatibility testing
@@ -22,8 +22,6 @@ caelus = "3.2.0+1.20.1"
 playerAnimationLib = "1.0.2-rc1+1.20"
 curios = "5.10.0+1.20.1"
 geckolib = "4.8.2"
-controllable = "6171424"
-framework = "6531428"
 
 # For publishing the mod to Modrinth
 modrinthMinotaur = "2.+"
@@ -34,7 +32,7 @@ spongepoweredProcessor = "0.8.5"
 
 [libraries]
 epicfight = { module = "maven.modrinth:epic-fight", version.ref = "epicfight" }
-ironsSpellbooks = { module = "io.redspace.ironsspellbooks:irons_spellbooks", version.ref = "ironsSpellbooks" }
+ironsSpellbooks = { module = "io.redspace:irons_spellbooks", version.ref = "ironsSpellbooks" }
 shoulderSurfingReloaded = { module = "maven.modrinth:shoulder-surfing-reloaded", version.ref = "shoulderSurfingReloaded" }
 
 # Runtime-only mods: required dependencies and optional mods for compatibility testing
@@ -42,8 +40,6 @@ caelus = { module = "top.theillusivec4.caelus:caelus-forge", version.ref = "cael
 playerAnimationLib = { module = "dev.kosmx.player-anim:player-animation-lib-forge", version.ref = "playerAnimationLib" }
 curios = { module = "top.theillusivec4.curios:curios-forge", version.ref = "curios" }
 geckolib = { module = "software.bernie.geckolib:geckolib-forge-1.20.1", version.ref = "geckolib" }
-controllable = { module = "curse.maven:controllable-317269", version.ref = "controllable" }
-framework = { module = "curse.maven:framework-549225", version.ref = "framework" }
 
 [plugins]
 forgeGradle = { id = "net.minecraftforge.gradle", version.ref = "forgeGradle" }

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.8] - 2026-01-08
+
+- Updated the mod to support Iron's Spells and Spellbooks `3.15.0`
+  - The mod now requires `3.15.0` or newer 
+
 ## [0.0.7] - 2025-10-17
 
 * **Fixed**: The `lookAtCrosshairTarget` is called when perspective is not Shoulder Surfing.

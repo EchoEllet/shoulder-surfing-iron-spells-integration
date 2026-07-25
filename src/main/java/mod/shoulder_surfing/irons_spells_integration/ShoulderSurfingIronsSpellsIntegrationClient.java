@@ -1,6 +1,6 @@
 package mod.shoulder_surfing.irons_spells_integration;
 
-import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
+import com.github.exopandora.shouldersurfing.client.ShoulderSurfing;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
 
@@ -26,8 +26,8 @@ import io.redspace.ironsspellbooks.player.ClientMagicData;
  */
 public class ShoulderSurfingIronsSpellsIntegrationClient {
 
-    private static ShoulderSurfingImpl getShoulderSurfing() {
-        return ShoulderSurfingImpl.getInstance();
+    private static ShoulderSurfing getShoulderSurfing() {
+        return ShoulderSurfing.getInstance();
     }
 
     private static void lookAtCrosshairTarget() {

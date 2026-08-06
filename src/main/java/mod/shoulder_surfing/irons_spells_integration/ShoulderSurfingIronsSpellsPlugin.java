@@ -5,7 +5,6 @@ import com.github.exopandora.shouldersurfing.api.client.event.handler.ComputePla
 import com.github.exopandora.shouldersurfing.api.event.IEventBus;
 import com.github.exopandora.shouldersurfing.api.plugin.IShoulderSurfingPlugin;
 
-@SuppressWarnings("unused") // Referenced in src/main/resources/shouldersurfing_plugin.json
 public class ShoulderSurfingIronsSpellsPlugin implements IShoulderSurfingPlugin {
     @Override
     public void register(IEventBus eventBus) {
